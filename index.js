@@ -3,7 +3,7 @@ const express = require("express");
 
 // 1. Config
 var env = process.env.NODE_ENV || "development";
-var config = require("./config/config")[env];
+var config = require("./config/config_test")[env];
 
 // 1. MySQL Database
 var connection = mysql.createConnection({
@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
-var query = "SELECT * FROM Employees;";
+var query = "SHOW Tables;";
 connection.query(query, function(error, results, fields) {
   if (error) throw error;
   console.log(results);
