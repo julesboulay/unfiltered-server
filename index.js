@@ -15,19 +15,16 @@ var connection = mysql.createConnection({
   database: config.database.db
 });
 connection.connect();
-
-var query = "SHOW Tables;";
-connection.query(query, function(error, results, fields) {
-  if (error) throw error;
-  console.log(results);
-});
-connection.end();
+//connection.end();
 
 // 2. Express App Server
 const app = express();
 app.use(express.json());
+
 app.get("/", (req, res) => {
   console.log("Request recieved");
   res.send({ hello: "world" });
 });
+require("./routes/cafes")(app, connection);
+
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

@@ -1,0 +1,11 @@
+1. UI
+    
+
+2. Server
+    a) Login
+    a) Post new cafe (auth)
+    a) Get cafes near me (lat, lng)
+    b) 
+
+3. Machine Learning
+    a) 
