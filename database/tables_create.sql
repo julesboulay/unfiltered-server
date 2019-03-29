@@ -1,6 +1,6 @@
 CREATE TABLE Cafe
 (
-    google_place_id INT(255) NOT NULL,
+    google_place_id VARCHAR(255) NOT NULL,
     place_name VARCHAR(255) NOT NULL,
     lat DOUBLE NOT NULL,
     lng DOUBLE NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE Cafe
 CREATE TABLE Evaluation
 (
     evaluation_id INT(12) NOT NULL AUTO_INCREMENT,
-    google_place_id INT(255) NOT NULL,
+    google_place_id VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
 
     PRIMARY KEY (evaluation_id),
@@ -40,8 +40,8 @@ CREATE TABLE User (
 
 CREATE TABLE ConfirmMarzocco
 (
-    google_place_id INT(255) NOT NULL AUTO_INCREMENT,
-    user_id INT(12),
+    google_place_id VARCHAR(255) NOT NULL,
+    user_id INT(12) NOT NULL,
     date DATE NOT NULL,
 
     PRIMARY KEY(google_place_id, user_id),
@@ -51,7 +51,7 @@ CREATE TABLE ConfirmMarzocco
 
 CREATE TABLE Post(
     post_id INT(12) NOT NULL AUTO_INCREMENT,
-    google_place_id INT(255) NOT NULL,
+    google_place_id VARCHAR(255) NOT NULL,
     user_id INT(12) NOT NULL,
 
     PRIMARY KEY(post_id),

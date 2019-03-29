@@ -4,9 +4,9 @@ var config = {
     database: {
       host: "remotemysql.com",
       port: "3306",
-      user: "XolRXi53dS",
-      password: "whygls9b0v",
-      db: "XolRXi53dS"
+      user: "cHY7qwErSb",
+      password: "RXxb2OgezA",
+      db: "cHY7qwErSb"
     },
     server: {
       host: "localhost",
@@ -18,9 +18,9 @@ var config = {
     database: {
       host: "remotemysql.com",
       port: "3306",
-      user: "XolRXi53dS",
-      password: "whygls9b0v",
-      db: "XolRXi53dS"
+      user: "cHY7qwErSb",
+      password: "RXxb2OgezA",
+      db: "cHY7qwErSb"
     },
     server: {
       host: "localhost",

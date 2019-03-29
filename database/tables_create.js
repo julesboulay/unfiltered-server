@@ -6,7 +6,7 @@ module.exports = connection => {
     {
       name: "Cafe",
       sql: `CREATE TABLE Cafe (
-            google_place_id INT(255) NOT NULL, 
+            google_place_id VARCHAR(255) NOT NULL, 
             place_name VARCHAR(255) NOT NULL, 
             lat DOUBLE NOT NULL, 
             lng DOUBLE NOT NULL, 
@@ -19,7 +19,7 @@ module.exports = connection => {
       name: "Evaluation",
       sql: `CREATE TABLE Evaluation ( 
             evaluation_id INT(12) NOT NULL AUTO_INCREMENT, 
-            google_place_id INT(255) NOT NULL, 
+            google_place_id VARCHAR(255) NOT NULL, 
             date DATE NOT NULL, 
             
             PRIMARY KEY (evaluation_id), 
@@ -50,19 +50,20 @@ module.exports = connection => {
     {
       name: "ConfirmMarzocco",
       sql: `CREATE TABLE ConfirmMarzocco ( 
-            google_place_id INT(255) NOT NULL AUTO_INCREMENT, 
-            user_id INT(12), date DATE NOT NULL, 
+            google_place_id VARCHAR(255) NOT NULL, 
+            user_id INT(12) NOT NULL, 
+            date DATE NOT NULL, 
             
             PRIMARY KEY(google_place_id, user_id), 
             FOREIGN KEY(google_place_id) REFERENCES Cafe (google_place_id), 
             FOREIGN KEY(user_id) REFERENCES User (user_id) 
         ) ENGINE = INNODB AUTO_INCREMENT=1;`
-    },
+    }
     {
       name: "Post",
       sql: `CREATE TABLE Post ( 
             post_id INT(12) NOT NULL AUTO_INCREMENT, 
-            google_place_id INT(255) NOT NULL, 
+            google_place_id VARCHAR(255) NOT NULL, 
             user_id INT(12) NOT NULL, 
             
             PRIMARY KEY(post_id), 
