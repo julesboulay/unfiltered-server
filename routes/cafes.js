@@ -12,7 +12,7 @@ module.exports = (app, connection) => {
       return;
     }
 
-    var query = Cafe.getCafesQuery(lat, lng, diff);
+    var query = Cafe.getCafesQuery(Number(lat), Number(lng), Number(diff));
     await connection.query(query, function(error, result) {
       if (error) {
         res.send(error);
