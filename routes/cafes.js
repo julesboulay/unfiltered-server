@@ -2,7 +2,7 @@ const Cafe = require("../database/cafe_query");
 
 module.exports = (app, connection) => {
   app.get("/cafes", async (req, res) => {
-    var { lat, lng } = req.query;
+    var { lat, lng, diff } = req.query;
     if (lat === undefined || lng === undefined) {
       res.send("No location selected.");
       return;
@@ -12,7 +12,7 @@ module.exports = (app, connection) => {
       return;
     }
 
-    var query = Cafe.getCafesQuery(lat, lng);
+    var query = Cafe.getCafesQuery(lat, lng, diff);
     await connection.query(query, function(error, result) {
       if (error) {
         res.send(error);

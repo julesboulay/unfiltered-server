@@ -13,8 +13,9 @@ module.exports = class Cafe {
                 C.lng > ${w};`;
   }
 
-  static getCafesQuery(lat, lng) {
-    const diff = 2;
+  static getCafesQuery(lat, lng, diff) {
+    if (diff == undefined || isNaN(diff)) diff = 5;
+
     var n = lat + diff,
       s = lat - diff,
       e = lng + diff * 2,
