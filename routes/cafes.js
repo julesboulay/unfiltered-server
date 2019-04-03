@@ -4,18 +4,18 @@ module.exports = (app, connection) => {
   app.get("/cafes", async (req, res) => {
     var { lat, lng, diff } = req.query;
     if (lat === undefined || lng === undefined) {
-      res.send("No location selected.");
+      res.error("No location selected.");
       return;
     }
     if (isNaN(lat) || isNaN(lng)) {
-      res.send("Location not a number.");
+      res.error("Location not a number.");
       return;
     }
 
     var query = Cafe.getCafesQuery(Number(lat), Number(lng), Number(diff));
     await connection.query(query, function(error, result) {
       if (error) {
-        res.send(error);
+        res.error(error);
       } else {
         res.send(result);
       }
@@ -32,16 +32,16 @@ module.exports = (app, connection) => {
       lng, 
       address
     ) VALUES (
-      '${google_place_id}', 
-      '${place_name}', 
-       ${lat}, 
-       ${lng}, 
-      '${address}'
+        '${google_place_id}', 
+        '${place_name}', 
+        ${lat}, 
+        ${lng}, 
+        '${address}'
     );`;
 
     await connection.query(query, function(error, result) {
       if (error) {
-        res.send(error);
+        res.error(error);
       } else {
         res.send(result);
       }
