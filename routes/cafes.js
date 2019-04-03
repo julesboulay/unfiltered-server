@@ -15,7 +15,7 @@ module.exports = (app, connection) => {
     var query = Cafe.getCafesQuery(Number(lat), Number(lng), Number(diff));
     await connection.query(query, function(error, result) {
       if (error) {
-        res.error(error, result);
+        res.error(error);
       } else {
         res.send(result);
       }
@@ -41,7 +41,7 @@ module.exports = (app, connection) => {
 
     await connection.query(query, function(error, result) {
       if (error) {
-        res.error(error, result);
+        res.error(error);
       } else {
         res.send(result);
       }
