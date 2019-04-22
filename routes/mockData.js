@@ -2,22 +2,22 @@ let hongkong = [
   {
     google_place_id: "mockMachine_id_1",
     place_name: "mockMachine_name_1",
-    lat: 22.31,
-    lng: 114.17,
+    lat: 22.275,
+    lng: 114.16,
     address: "mockMachine_address_1"
   },
   {
     google_place_id: "mockMachine_id_2",
     place_name: "mockMachine_name_2",
-    lat: 22.36,
-    lng: 114.12,
+    lat: 22.273,
+    lng: 114.185,
     address: "mockMachine_address_2"
   },
   {
     google_place_id: "mockMachine_id_3",
     place_name: "mockMachine_name_3",
-    lat: 22.26,
-    lng: 114.22,
+    lat: 22.274,
+    lng: 114.204,
     address: "mockMachine_address_3"
   }
 ];
@@ -33,15 +33,15 @@ let sanfrancisco = [
   {
     google_place_id: "mockMachine_id_2",
     place_name: "mockMachine_name_2",
-    lat: 37.82,
-    lng: -122.37,
+    lat: 37.775,
+    lng: -122.41,
     address: "mockMachine_address_2"
   },
   {
     google_place_id: "mockMachine_id_3",
     place_name: "mockMachine_name_3",
-    lat: 37.72,
-    lng: -122.47,
+    lat: 37.765,
+    lng: -122.43,
     address: "mockMachine_address_3"
   }
 ];
