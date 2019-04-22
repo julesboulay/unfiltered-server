@@ -11,14 +11,7 @@ module.exports = (app, connection) => {
       next("Location not a number.");
     }
 
-    var query = Cafe.getCafesQuery(Number(lat), Number(lng), Number(diff));
-    await connection.query(query, function(error, result) {
-      if (error) {
-        next(error);
-      } else {
-        Mock.MockData(num, sec).then(data => res.send(result.concat(data)));
-      }
-    });
+    Mock.MockData(num, sec).then(data => res.send(data));
   });
 
   app.get("/cafes", async (req, res, next) => {
