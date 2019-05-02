@@ -4,7 +4,8 @@ const express = require("express");
 // 1. Config
 //var ENV = process.env.NODE_ENV || "development";
 var PORT = process.env.PORT || 3000;
-var config = require("./config/config_test")["development"];
+//var config = require("./config/config_test")["development"];
+var config = require("./config/config")["development"];
 
 // 1. MySQL Database
 var connection = mysql.createConnection({

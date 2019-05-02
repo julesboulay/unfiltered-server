@@ -24,28 +24,65 @@ module.exports = class Cafe {
     return this.createQuery(n, s, e, w);
 
     /*** EDGE CASES ***/
-    /*if (n > 90) {
-      var newN = s;
-      s = -(n % 90);
-      n = newN;
-      if (e > 180) {
-        var newE = w;
-        w = -(e % 180);
-        e = newE;
-        return this.createQuery(n, s, e, w);
-      } else return this.createQuery(n, s, e, w);
-    } else if (s < -90) {
-      var newS = n;
-      n = -(s % 90);
-      s = newS;
-      if (e > 180) {
-        var newE = w;
-        w = -(e % 180);
-        e = newE;
-        return this.createQuery(n, s, e, w);
-      } else return this.createQuery(n, s, e, w);
-    } else {
-      return this.createQuery(n, s, e, w);
-    }*/
+  }
+
+  static getCafeQuery(placeid) {
+    return `
+        SELECT 
+            C.google_place_id
+        FROM Cafe C
+        WHERE   C.google_place_id LIKE '${placeid}'`;
+  }
+
+  static saveCafeQuery(google_place_id, place_name, lat, lng, address) {
+    return `
+    INSERT INTO Cafe (
+      google_place_id, 
+      place_name, 
+      lat, 
+      lng, 
+      address
+    ) VALUES (
+        '${google_place_id}', 
+        "${place_name}", 
+        ${lat}, 
+        ${lng}, 
+        "${address}"
+    );`;
+  }
+
+  static saveEvaluationQuery(google_place_id, date) {
+    return `
+    INSERT INTO Evaluation (
+      google_place_id, 
+      date
+    ) VALUES (
+        '${google_place_id}', 
+        ${date}
+    );`;
+  }
+
+  static getEvaluationQuery(google_place_id) {
+    return `
+    SELECT E.evaluation_id 
+    FROM Evaluation E
+    WHERE E.google_place_id LIKE '${google_place_id}';`;
+  }
+
+  static saveEvaluatedPictureQuery(
+    photo_id,
+    evaluation_id,
+    marzocco_likelihood
+  ) {
+    return `
+    INSERT INTO EvaluatedPicture (
+      google_picture_id, 
+      evaluation_id,
+      marzocco_likelihood
+    ) VALUES (
+        '${photo_id}', 
+        '${evaluation_id}',
+        ${marzocco_likelihood}
+    );`;
   }
 };

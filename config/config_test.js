@@ -2,11 +2,10 @@ var config = {
   development: {
     url: "http://my.site.com",
     database: {
-      host: "remotemysql.com",
-      port: "3306",
-      user: "cHY7qwErSb",
-      password: "RXxb2OgezA",
-      db: "cHY7qwErSb"
+      host: "localhost",
+      user: "Username",
+      password: "password",
+      db: "comp3330"
     },
     server: {
       host: "localhost",
