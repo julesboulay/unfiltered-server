@@ -27,30 +27,30 @@ CREATE TABLE EvaluatedPicture (
 ) ENGINE = INNODB;
 
 CREATE TABLE User (
-    user_id INT(12) NOT NULL AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
     username VARCHAR(20) NOT NULL,
-    password VARCHAR(15) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     sign_up_date DATE NOT NULL,
 
-    PRIMARY KEY(user_id)
+    PRIMARY KEY(email)
 ) ENGINE = INNODB AUTO_INCREMENT=1;
 
 CREATE TABLE ConfirmMarzocco(
     google_place_id VARCHAR(255) NOT NULL,
-    user_id INT(12) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
 
-    PRIMARY KEY(google_place_id, user_id),
+    PRIMARY KEY(google_place_id, email),
     FOREIGN KEY(google_place_id) REFERENCES Cafe (google_place_id),
-    FOREIGN KEY(user_id) REFERENCES User (user_id)
+    FOREIGN KEY(email) REFERENCES User (email)
 ) ENGINE = INNODB AUTO_INCREMENT=1;
 
 CREATE TABLE Post (
-    post_id INT(12) NOT NULL AUTO_INCREMENT,
     google_place_id VARCHAR(255) NOT NULL,
-    user_id INT(12) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
 
-    PRIMARY KEY(post_id),
+    PRIMARY KEY(google_place_id),
     FOREIGN KEY(google_place_id) REFERENCES Cafe(google_place_id),
-    FOREIGN KEY(user_id) REFERENCES User(user_id)
+    FOREIGN KEY(email) REFERENCES User(email)
 ) ENGINE = INNODB AUTO_INCREMENT=1;

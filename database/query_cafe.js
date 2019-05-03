@@ -85,4 +85,17 @@ module.exports = class Cafe {
         ${marzocco_likelihood}
     );`;
   }
+
+  static savePostQuery(google_place_id, email, date) {
+    return `
+    INSERT INTO Evaluation (
+      google_place_id, 
+      email,
+      date
+    ) VALUES (
+        '${google_place_id}', 
+        '${email}',
+        ${date}
+    );`;
+  }
 };

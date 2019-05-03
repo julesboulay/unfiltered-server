@@ -26,10 +26,11 @@ connection.connect();
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
   console.log("Request recieved");
-  res.send({ hello: "world" });
+  res.send({ Not: "Dead YET" });
 });
 require("./routes/cafes")(app, connection);
+require("./routes/user")(app, connection);
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
