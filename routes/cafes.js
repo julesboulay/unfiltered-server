@@ -4,6 +4,7 @@ const Mock = require("./mockData");
 const get_nearby_places = require("../places/places_nearby");
 const get_place_details = require("../places/places_details");
 const get_place_photo = require("../places/places_photo");
+const filter_places = require("../places/places_filter");
 
 module.exports = (app, connection) => {
   app.get("/mock", async (req, res, next) => {
@@ -35,8 +36,11 @@ module.exports = (app, connection) => {
     // 1. Get Nearby Places
     get_nearby_places(query, places => {
       if (places) {
+        // Filter Places
+        places = filter_places(places);
         // For Each Place
         places.map(async place => {
+          console.log(place.name);
           // 2. Check place ain't in MySQL
           var query = Cafe.getCafeQuery(place.place_id);
           await connection.query(query, function(error, result) {
@@ -93,8 +97,6 @@ module.exports = (app, connection) => {
                                   get_place_photo(
                                     photo.photo_reference,
                                     picture => {
-                                      // 8. Evaluate with Python AI
-
                                       // 8. Evaluate with Python AI
                                       var options = {
                                         hostname: "localhost",

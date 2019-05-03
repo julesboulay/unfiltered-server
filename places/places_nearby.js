@@ -2,23 +2,23 @@ var https = require("https");
 
 function placesNearbyQuery(lat, lng, rad, token) {
   var key = "AIzaSyCOL-TKrDjemTBuwoNQcnpOFgMavyFErmc";
-  var location = lat + "," + lng;
-  var radius = rad == null || rad == undefined || rad < 0 ? 16000 : rad;
-  var sensor = false;
-  var types = "cafe";
-  var keyword = "slow";
-  var language = "english";
-  var pagetoken = token ? "&pagetoken=true" : "";
-
-  var url =
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${key}` +
-    `&location=${location}&radius=${radius}&sensor=${sensor}&types=${types}` +
-    `&keyword=${keyword}&language=${language}${pagetoken}`;
-
-  return url;
+  if (token == null || token == undefined || token == "") {
+    var location = lat + "," + lng;
+    var radius = rad == null || rad == undefined || rad < 0 ? 16000 : rad;
+    var types = "cafe";
+    return (
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${key}` +
+      `&location=${location}&radius=${radius}&types=${types}`
+    );
+  } else {
+    return (
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${key}` +
+      `&pagetoken=${token}`
+    );
+  }
 }
 
-function placesNearby(query, callback, pre_locations = []) {
+function placesNearby(query, callback, page_num = 1) {
   var url = placesNearbyQuery(query.lat, query.lng, query.rad, query.token);
   https
     .get(url, function(response) {
@@ -31,13 +31,17 @@ function placesNearby(query, callback, pre_locations = []) {
         var places = JSON.parse(body);
         var locations = places.results;
 
-        if (locations.length > 0) {
-          query.token = true;
-          callback(
-            placesNearby(query, callback, pre_locations.concat(locations))
-          );
+        if (places.status != "OK") {
+          console.log("Google Places error: " + places.status);
+          return;
+        }
+
+        if (page_num < 3 && locations.length == 20) {
+          query.token = places.next_page_token;
+          callback(locations);
+          setTimeout(() => placesNearby(query, callback, page_num + 1), 2000);
         } else {
-          callback(pre_locations.concat(locations));
+          callback(locations);
         }
       });
     })

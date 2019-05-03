@@ -7,7 +7,7 @@ var PORT = process.env.PORT || 3000;
 //var config = require("./config/config_test")["development"];
 var config = require("./config/config")["development"];
 
-// 1. MySQL Database
+// 2. MySQL Database
 var connection = mysql.createConnection({
   host: config.database.host,
   user: config.database.user,
@@ -18,7 +18,11 @@ var connection = mysql.createConnection({
 connection.connect();
 //connection.end();
 
-// 2. Express App Server
+// #. Mock Python Photo Request
+//const mock_request = require("./mock_python_request");
+//mock_request(connection);
+
+// 3. Express App Server
 const app = express();
 app.use(express.json());
 
