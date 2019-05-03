@@ -1,29 +1,13 @@
 var config = {
-  development: {
-    url: "http://my.site.com",
-    database: {
-      host: "localhost",
-      user: "Username",
-      password: "password",
-      db: "comp3330"
-    },
-    server: {
-      host: "localhost",
-      port: "3000"
-    }
-  },
+  secret: "abracadabra",
 
   production: {
     database: {
       host: "remotemysql.com",
       port: "3306",
-      user: "cHY7qwErSb",
-      password: "RXxb2OgezA",
-      db: "cHY7qwErSb"
-    },
-    server: {
-      host: "localhost",
-      port: "3000"
+      user: "X4oiYHxxD6",
+      password: "PLhYCqmXtt",
+      db: "X4oiYHxxD6"
     }
   }
 };

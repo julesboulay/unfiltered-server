@@ -227,7 +227,7 @@ module.exports = (app, connection) => {
       );
 
       // Save the Post by user
-      await connection.query(query, function(error, result) {
+      await connection.query(query, async function(error, result) {
         if (error) {
           next(error);
         } else {
@@ -240,7 +240,7 @@ module.exports = (app, connection) => {
             if (error) {
               next(error);
             } else {
-            res.send(result);
+              res.send(result);
             }
           });
         }
