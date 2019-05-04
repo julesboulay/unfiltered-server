@@ -4,7 +4,7 @@ const express = require("express");
 // 1. Config
 var ENV = process.env.NODE_ENV || "development";
 var PORT = process.env.PORT || 3000;
-var config = (config = require("./config/config_test")["production"]);
+var config = require("./config/config_test")["production"];
 if (ENV == "development") config = require("./config/config")["development"];
 
 // 2. MySQL Database
@@ -29,7 +29,6 @@ const app = express();
 app.use(express.json());
 
 app.get("/health", (req, res) => {
-  console.log("Request recieved");
   res.send({ Not: "Dead YET" });
 });
 require("./routes/cafes")(app, connection);

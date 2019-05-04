@@ -10,6 +10,8 @@ const filter_places = require("../places/places_filter");
 
 const Cafe = require("../database/query_cafe");
 
+const python_options = require("./config/python_server");
+
 module.exports = (app, connection) => {
   app.get("/mock", async (req, res, next) => {
     if (!authenticated(req)) {
@@ -116,15 +118,7 @@ module.exports = (app, connection) => {
                                       photo.photo_reference,
                                       picture => {
                                         // 8. Evaluate with Python AI
-                                        var options = {
-                                          hostname: "localhost",
-                                          port: 5000,
-                                          path: "/",
-                                          method: "POST",
-                                          headers: {
-                                            "Content-Type": "application/json"
-                                          }
-                                        };
+                                        var options = python_options();
                                         var req = http.request(
                                           options,
                                           function(res) {
