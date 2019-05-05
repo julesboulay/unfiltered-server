@@ -34,13 +34,13 @@ function placesNearby(query, callback, page_num = 1) {
 
         if (places.status != "OK") {
           console.log("Google Places error: " + places.status);
-        } /* else if (page_num < 3 && locations.length == 20) {
+        } else if (page_num < 3 && locations.length == 20) {
           query.token = places.next_page_token;
           callback(locations);
           setTimeout(() => placesNearby(query, callback, page_num + 1), 2000);
-        } else {*/
-        callback(locations);
-        //}
+        } else {
+          callback(locations);
+        }
       });
     })
     .on("error", function(e) {
