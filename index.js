@@ -18,20 +18,17 @@ var connection = mysql.createConnection({
 connection.connect();
 
 // #. Clean Database
-//require("./database/tables_drop")(connection);
-//require("./database/tables_create")(connection);
-
-// #. Mock Python Photo Request
-//require("./mock_python_request")(connection);
+//require("./src/database/tables_drop")(connection);
+//require("./src/database/tables_create")(connection);
 
 // 3. Express App Server
 const app = express();
 app.use(express.json());
 
 app.get("/health", (req, res) => {
-  res.send({ Not: "Dead YET" });
+  res.send({ Not: "Dead YET!" });
 });
-require("./routes/cafes")(app, connection);
-require("./routes/user")(app, connection);
+require("./src/routes/cafes")(app, connection);
+require("./src/routes/user")(app, connection);
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

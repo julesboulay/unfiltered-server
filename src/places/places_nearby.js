@@ -1,7 +1,8 @@
 var https = require("https");
+var places_key = require("../../config/google_apikeys")().places_key;
 
 function placesNearbyQuery(lat, lng, rad, token) {
-  var key = "AIzaSyCOL-TKrDjemTBuwoNQcnpOFgMavyFErmc";
+  var key = places_key;
   if (token == null || token == undefined || token == "") {
     var location = lat + "," + lng;
     var radius = rad == null || rad == undefined || rad < 0 ? 16000 : rad;
@@ -33,20 +34,17 @@ function placesNearby(query, callback, page_num = 1) {
 
         if (places.status != "OK") {
           console.log("Google Places error: " + places.status);
-          return;
-        }
-
-        if (page_num < 3 && locations.length == 20) {
+        } /* else if (page_num < 3 && locations.length == 20) {
           query.token = places.next_page_token;
           callback(locations);
           setTimeout(() => placesNearby(query, callback, page_num + 1), 2000);
-        } else {
-          callback(locations);
-        }
+        } else {*/
+        callback(locations);
+        //}
       });
     })
     .on("error", function(e) {
-      console.log("Got error: " + e.message);
+      reject("Got error: " + e.message);
     });
 }
 

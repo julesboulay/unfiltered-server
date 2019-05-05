@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const User = require("../database/query_user");
-const config = require("../config/config_test");
+const config = require("../../config/config_test");
 
 module.exports = (app, connection) => {
   app.post("/authenticate", async (req, res) => {

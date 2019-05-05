@@ -1,7 +1,8 @@
 var https = require("https");
+var places_key = require("../../config/google_apikeys")().places_key;
 
 function placesDetailsQuery(placeid) {
-  var key = "AIzaSyCOL-TKrDjemTBuwoNQcnpOFgMavyFErmc";
+  var key = places_key;
   var language = "english";
   var url =
     `https://maps.googleapis.com/maps/api/place/details/json?key=${key}` +
@@ -10,7 +11,7 @@ function placesDetailsQuery(placeid) {
   return url;
 }
 
-function placesDetails(placeid, callback) {
+function placesDetails(placeid, resolve, reject) {
   var url = placesDetailsQuery(placeid);
   https
     .get(url, function(response) {
@@ -21,11 +22,11 @@ function placesDetails(placeid, callback) {
 
       response.on("end", function() {
         var place = JSON.parse(body);
-        callback(place.result);
+        resolve(place.result);
       });
     })
     .on("error", function(e) {
-      console.log("Got error: " + e.message);
+      reject("Got error: " + e.message);
     });
 }
 

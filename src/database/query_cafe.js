@@ -1,16 +1,31 @@
 module.exports = class Cafe {
-  static createQuery(n, s, e, w) {
+  static createQuery(n, s, e, w, marzocco_likelihood = 0.5) {
     return `
-        SELECT 
-            C.google_place_id, 
-            C.place_name, C.lat, 
-            C.lng, 
-            C.address
-        FROM Cafe C
-        WHERE   C.lat < ${n} AND
-                C.lat > ${s} AND
-                C.lng < ${e} AND
-                C.lng > ${w};`;
+      SELECT 
+        C.google_place_id, 
+        C.place_name, 
+        C.lat, 
+        C.lng, 
+        C.address,
+        MAX(P.marzocco_likelihood)
+      FROM Cafe C, Evaluation E, EvaluatedPicture P
+      WHERE 
+        C.lat < ${n} AND
+        C.lat > ${s} AND
+        C.lng < ${e} AND
+        C.lng > ${w} AND
+        C.google_place_id LIKE E.google_place_id AND
+        E.evaluation_id = P.evaluation_id
+      GROUP BY C.google_place_id
+      HAVING MAX(P.marzocco_likelihood) > ${marzocco_likelihood}
+      ORDER BY C.google_place_id DESC`;
+  }
+
+  static getEvaluationsToday() {
+    return `
+    SELECT evaluation_id, DATE_FORMAT(date, '%Y-%m-%d') 
+    FROM Evaluation 
+    WHERE DATE(date) = CURDATE();`;
   }
 
   static getCafesQuery(lat, lng, diff) {
