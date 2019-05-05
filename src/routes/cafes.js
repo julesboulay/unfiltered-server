@@ -108,7 +108,7 @@ module.exports = (app, connection) => {
         if (error) {
           next(error);
         } else {
-          var query = Cafes.savePostQuery(
+          var query = Cafe.savePostQuery(
             google_place_id,
             email,
             connection.escape(new Date())

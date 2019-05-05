@@ -1,24 +1,29 @@
 module.exports = class Cafe {
   static createQuery(n, s, e, w, marzocco_likelihood = 0.5) {
     return `
-      SELECT 
+      SELECT
         C.google_place_id, 
         C.place_name, 
         C.lat, 
         C.lng, 
-        C.address,
-        MAX(P.marzocco_likelihood)
-      FROM Cafe C, Evaluation E, EvaluatedPicture P
-      WHERE 
+        C.address
+      FROM Cafe C, Evaluation E
+      WHERE
         C.lat < ${n} AND
         C.lat > ${s} AND
         C.lng < ${e} AND
-        C.lng > ${w} AND
-        C.google_place_id LIKE E.google_place_id AND
-        E.evaluation_id = P.evaluation_id
+        C.lng > ${w} AND (
+        E.evaluation_id IN (
+          SELECT EP.evaluation_id
+          FROM Evaluation E, EvaluatedPicture EP
+          WHERE
+            E.evaluation_id = EP.evaluation_id AND
+            EP.marzocco_likelihood > ${marzocco_likelihood} 
+        ) OR
+        C.google_place_id IN (
+          SELECT google_place_id FROM Post))
       GROUP BY C.google_place_id
-      HAVING MAX(P.marzocco_likelihood) > ${marzocco_likelihood}
-      ORDER BY C.google_place_id DESC`;
+      ORDER BY C.google_place_id DESC;`;
   }
 
   static getEvaluationsToday() {
