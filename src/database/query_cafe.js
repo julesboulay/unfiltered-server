@@ -18,7 +18,8 @@ module.exports = class Cafe {
           FROM Evaluation E, EvaluatedPicture EP
           WHERE
             E.evaluation_id = EP.evaluation_id AND
-            EP.marzocco_likelihood > ${marzocco_likelihood} 
+            EP.marzocco_likelihood > ${marzocco_likelihood}
+          GROUP BY EP.evaluation_id
         ) OR
         C.google_place_id IN (
           SELECT google_place_id FROM Post))

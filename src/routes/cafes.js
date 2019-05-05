@@ -1,7 +1,10 @@
+const jwt = require("jsonwebtoken");
+
 const Mock = require("./mockData");
 const authenticated = require("./auth");
 const Cafe = require("../database/query_cafe");
 const ChainPlacesRequests = require("../places/chain_places");
+const config = require("../../config/config_test");
 
 const MAX_PLACES_API_CALLS = 50000;
 

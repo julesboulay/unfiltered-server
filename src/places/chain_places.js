@@ -135,7 +135,9 @@ module.exports = function ChainPlacesRequest(query, connection) {
                         function(error, res, body) {
                           if (error) {
                             reject(error);
-                          } else if (body.message != "success" || body.error) {
+                          } else if (!body.message) {
+                            reject("Heroku Internal Error");
+                          } else if (body.message != "success") {
                             reject(body.error);
                           } else {
                             const { marzocco_probability } = body;
