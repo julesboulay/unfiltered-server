@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 
-//var config = (config = require("../../config/config_test")["production"]);
-var config = (config = require("../../config/config")["development"]);
+var config = (config = require("../../config/config_test")["production"]);
+//var config = (config = require("../../config/config")["development"]);
 
 var connection = mysql.createConnection({
   host: config.database.host,
@@ -46,7 +46,7 @@ if (false) {
     console.log(result);
   });
 } else {
-  var tables = ["EvaluatedPicture", "Evaluation", "Cafe"];
+  var tables = ["Post", "EvaluatedPicture", "Evaluation", "Cafe"];
   tables.map(t => {
     connection.query(`DELETE FROM ${t};`, function(error, result) {
       if (error) console.log(error);

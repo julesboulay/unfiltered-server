@@ -1,6 +1,21 @@
 const mysql = require("mysql");
 const express = require("express");
 
+/** TODO
+ *
+ * Doable:
+ * 1. Add ConfirmMarzcocco pipeline
+ * 2. Look for marzocco in reviews
+ *
+ * Pending:
+ * 1. Fix Python Model
+ * 2. Look for google search pictures
+ *
+ * Thoughts:
+ * Store photos in Python Dir (remove *.jpg from .gitignore)
+ * Atleast those with high probability
+ */
+
 // 1. Config
 var ENV = process.env.NODE_ENV || "development";
 var PORT = process.env.PORT || 3000;

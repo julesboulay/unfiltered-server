@@ -36,14 +36,14 @@ module.exports = (app, connection) => {
       if (isNaN(lat) || isNaN(lng)) {
         next("Location not a number.");
       } else {
-        var query = Cafe.getEvaluationsToday();
+        var query = Cafe.getEvaluationsThisMonth();
         await connection.query(query, function(error, result) {
           if (error) {
             next(error);
           } else {
             let evals = result.length;
-            let num_of_api_calls_today = evals + evals + 10 * evals;
-            if (num_of_api_calls_today > MAX_PLACES_API_CALLS) {
+            let num_of_api_calls_this_month = evals + evals + 10 * evals;
+            if (num_of_api_calls_this_month > MAX_PLACES_API_CALLS) {
               next("Number of API calls exceeded");
             } else {
               var query = {

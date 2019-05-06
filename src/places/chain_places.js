@@ -8,11 +8,6 @@ const filter_places = require("./places_filter");
 const Cafe = require("../database/query_cafe");
 const python_options = require("../../config/python_server");
 
-/**
- * 1. Look for google search pictures
- * 2. Look for marzocco in reviews
- */
-
 module.exports = function ChainPlacesRequest(query, connection) {
   // 1. Get Nearby Places
   get_nearby_places(query, places => {

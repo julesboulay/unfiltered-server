@@ -27,11 +27,13 @@ module.exports = class Cafe {
       ORDER BY C.google_place_id DESC;`;
   }
 
-  static getEvaluationsToday() {
+  static getEvaluationsThisMonth() {
     return `
-    SELECT evaluation_id, DATE_FORMAT(date, '%Y-%m-%d') 
-    FROM Evaluation 
-    WHERE DATE(date) = CURDATE();`;
+    SELECT evaluation_id 
+    FROM Evaluation
+    WHERE  
+        MONTH(date) = MONTH(CURRENT_DATE()) AND
+        YEAR(date) = YEAR(CURRENT_DATE());`;
   }
 
   static getCafesQuery(lat, lng, diff) {
