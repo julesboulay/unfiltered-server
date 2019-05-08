@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "server": "node index.js",
+    "queue": "node src/pythonRequests/queue.js",
+    "start": "concurrently \"npm run queue\" \"npm run server\""
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +15,7 @@
     "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
     "express": "^4.16.4",
     "fotology": "^1.2.2",
     "google-image-downloader": "0.0.8",

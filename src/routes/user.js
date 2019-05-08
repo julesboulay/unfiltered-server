@@ -10,13 +10,13 @@ module.exports = (app, connection) => {
     const credentials = auth(req);
 
     if (!credentials) {
-      res.status(400).json({ message: "Invalid Request !" });
+      res.status(400).json({ message: "failure", error: "Invalid Request!" });
     } else {
       const { name, pass } = credentials;
       var query = User.findUserQuery(name);
       await connection.query(query, function(error, result) {
         if (error) {
-          res.status(500).json({ message: error.message });
+          res.status(500).json({ message: "failure", error: error.message });
         } else if (result.length < 1) {
           res.status(404).json({ message: "No User with that email" });
         } else {
@@ -28,9 +28,11 @@ module.exports = (app, connection) => {
               config.secret,
               { expiresIn: 1440 }
             );
-            res.status(200).json({ message: "Login Success", token: token });
+            res.status(200).json({ message: "success", token: token });
           } else {
-            res.status(401).json({ message: "Invalid Credentials !" });
+            res
+              .status(401)
+              .json({ message: "failure", error: "Invalid Credentials!" });
           }
         }
       });
@@ -41,9 +43,9 @@ module.exports = (app, connection) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-      res.status(400).json({ message: "Invalid Request !" });
+      res.status(400).json({ message: "failure", error: "Invalid Request!" });
     } else if (!username.trim() || !email.trim() || !password.trim()) {
-      res.status(400).json({ message: "Invalid Request !" });
+      res.status(400).json({ message: "failure", error: "Invalid Request!" });
     } else {
       const salt = bcrypt.genSaltSync(10);
       const hash_password = bcrypt.hashSync(password, salt);
@@ -56,11 +58,10 @@ module.exports = (app, connection) => {
       );
       await connection.query(query, function(error, result) {
         if (error) {
-          res.status(500).json({ message: error.message });
+          res.status(500).json({ message: "failure", error: error.message });
         } else {
-          console.log("User Created");
           res.setHeader("Location", "/users/" + email);
-          res.status(200).json({ message: "Success" });
+          res.status(200).json({ message: "success" });
         }
       });
     }

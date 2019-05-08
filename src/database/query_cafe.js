@@ -74,6 +74,19 @@ module.exports = class Cafe {
     );`;
   }
 
+  static saveReviewHit(evaluation_id, hit_word, review) {
+    return `
+    INSERT INTO ReviewHit (
+      evaluation_id,
+      hit_word,
+      review
+    ) VALUES ( 
+        ${evaluation_id},
+        '${hit_word}',
+        "${review}"
+    );`;
+  }
+
   static saveEvaluationQuery(google_place_id, date) {
     return `
     INSERT INTO Evaluation (
@@ -103,7 +116,7 @@ module.exports = class Cafe {
       evaluation_id,
       marzocco_likelihood
     ) VALUES (
-        '${photo_id}', 
+        "${photo_id}", 
         '${evaluation_id}',
         ${marzocco_likelihood}
     );`;

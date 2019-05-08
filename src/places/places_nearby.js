@@ -19,7 +19,7 @@ function placesNearbyQuery(lat, lng, rad, token) {
   }
 }
 
-function placesNearby(query, callback, page_num = 1) {
+function placesNearby({ query, resolve }, callback, page_num = 1) {
   var url = placesNearbyQuery(query.lat, query.lng, query.rad, query.token);
   https
     .get(url, function(response) {
@@ -33,18 +33,22 @@ function placesNearby(query, callback, page_num = 1) {
         var locations = places.results;
 
         if (places.status != "OK") {
-          console.log("Google Places error: " + places.status);
+          callback(null, "Google Places error: " + places.status);
         } else if (page_num < 3 && locations.length == 20) {
           query.token = places.next_page_token;
           callback(locations);
-          setTimeout(() => placesNearby(query, callback, page_num + 1), 2000);
+          setTimeout(
+            () => placesNearby({ query, resolve }, callback, page_num + 1),
+            2000
+          );
         } else {
+          resolve();
           callback(locations);
         }
       });
     })
     .on("error", function(e) {
-      reject("Got error: " + e.message);
+      callback(null, "Got error: " + e.message);
     });
 }
 

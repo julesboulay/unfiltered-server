@@ -26,6 +26,37 @@ CREATE TABLE EvaluatedPicture (
     FOREIGN KEY(evaluation_id) REFERENCES Evaluation(evaluation_id)
 ) ENGINE = INNODB;
 
+
+CREATE TABLE DwlQueueItem(
+  evaluation_id INT(12) NOT NULL,
+  place_id VARCHAR(255) NOT NULL,
+  place_name VARCHAR(255) NOT NULL,
+  place_suffix VARCHAR(255) NOT NULL,
+  date DATE NOT NULL,
+
+  PRIMARY KEY(evaluation_id),
+  FOREIGN KEY(evaluation_id) REFERENCES Evaluation(evaluation_id)
+) ENGINE = INNODB;
+
+CREATE TABLE ImgQueueItem(
+  evaluation_id INT(12) NOT NULL,
+  photo_reference VARCHAR(255) NOT NULL,
+  date DATE NOT NULL,
+
+  PRIMARY KEY(photo_reference),
+  FOREIGN KEY(evaluation_id) REFERENCES Evaluation(evaluation_id)
+) ENGINE = INNODB;
+
+CREATE TABLE ReviewHit (
+  reviewhit_id INT(12) NOT NULL AUTO_INCREMENT,
+  evaluation_id INT(12) NOT NULL,
+  hit_word VARCHAR(255) NOT NULL,
+  review TINYTEXT NOT NULL,
+
+  PRIMARY KEY(reviewhit_id),
+  FOREIGN KEY(evaluation_id) REFERENCES Evaluation(evaluation_id)
+) ENGINE = INNODB AUTO_INCREMENT=1;
+
 CREATE TABLE User (
     email VARCHAR(255) NOT NULL,
     username VARCHAR(20) NOT NULL,

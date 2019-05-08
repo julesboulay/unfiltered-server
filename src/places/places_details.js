@@ -11,7 +11,8 @@ function placesDetailsQuery(placeid) {
   return url;
 }
 
-function placesDetails(placeid, resolve, reject) {
+function placesDetails(_$_, resolve, reject) {
+  var placeid = _$_.place.place_id;
   var url = placesDetailsQuery(placeid);
   https
     .get(url, function(response) {
@@ -22,7 +23,8 @@ function placesDetails(placeid, resolve, reject) {
 
       response.on("end", function() {
         var place = JSON.parse(body);
-        resolve(place.result);
+        _$_.details = place.result;
+        resolve(_$_);
       });
     })
     .on("error", function(e) {

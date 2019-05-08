@@ -1,19 +1,18 @@
 const mysql = require("mysql");
 const express = require("express");
-
-/** TODO
- *
- * Doable:
- * 1. Add ConfirmMarzcocco pipeline
- * 2. Look for marzocco in reviews
+/**
+ * TODO:
+ * 1. Look for google search pictures
+ * 2. Add ConfirmMarzcocco pipeline
+ * 3. Optimize sql in-out from place-pipeline
  *
  * Pending:
  * 1. Fix Python Model
- * 2. Look for google search pictures
+ * 2. Add [Synesso, Slayer, Van der Westen (Speedster & Kees), Rancilio, Nuevo Simoneli]
  *
  * Thoughts:
- * Store photos in Python Dir (remove *.jpg from .gitignore)
- * Atleast those with high probability
+ * Store photos in Python Dir (remove *.jpg from .gitignore),
+ * atleast those with high probability
  */
 
 // 1. Config
@@ -32,7 +31,6 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
-// #. Clean Database
 //require("./src/database/tables_drop")(connection);
 //require("./src/database/tables_create")(connection);
 
@@ -41,7 +39,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/health", (req, res) => {
-  res.send({ Not: "Dead YET!" });
+  res.send({ message: "success", data: "Not DeaD YET!" });
 });
 require("./src/routes/cafes")(app, connection);
 require("./src/routes/user")(app, connection);

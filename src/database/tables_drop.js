@@ -7,6 +7,9 @@ module.exports = connection => {
     { name: "ConfirmMarzocco", sql: `DROP TABLE ConfirmMarzocco;` },
     { name: "User", sql: `DROP TABLE User;` },
 
+    { name: "ImgQueueItem", sql: `DROP TABLE ImgQueueItem;` },
+    { name: "DwlQueueItem", sql: `DROP TABLE DwlQueueItem;` },
+    { name: "ReviewHit", sql: `DROP TABLE ReviewHit;` },
     { name: "EvaluatedPicture", sql: `DROP TABLE EvaluatedPicture;` },
     { name: "Evaluation", sql: `DROP TABLE Evaluation;` },
     { name: "Cafe", sql: `DROP TABLE Cafe;` }

@@ -18,7 +18,7 @@ connection.connect();
 var query = "SELECT google_picture_id FROM EvaluatedPicture LIMIT 4;";
 connection.query(query, function(error, result) {
   if (error) {
-    console.log(error);
+    console.log(error.message);
   } else {
     // For Each Photo Reference
     result.map(photo => {
@@ -33,7 +33,7 @@ connection.query(query, function(error, result) {
           return new Promise(function(resolve, reject) {
             // 9. Evaluate with Python AI
             request.post(
-              python_options(),
+              python_options() + "/predictimage",
               {
                 json: {
                   type: "Buffer",
@@ -58,7 +58,10 @@ connection.query(query, function(error, result) {
           });
         })
         .then(_$$_ => {
-          console.log("Success");
+          console.log({
+            message: "success",
+            marzocco_probability: _$$_.marzocco_probability
+          });
         })
         .catch(err => console.log(err));
     });
